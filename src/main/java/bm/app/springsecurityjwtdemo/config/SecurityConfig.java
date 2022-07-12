@@ -13,20 +13,21 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource datasource;
-
-    /**
-     * Configure the database and users.
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(datasource)
-                .withUser("test") //Adding a user for testing purposes.
-                //I need to specify how my password will be encoded. Using the "bcrypt" way, I am encoding "test".
-                .password("{bcrypt}" + new BCryptPasswordEncoder().encode("test"))
-                .roles("USER"); //The user's role.
-    }
+//    private final DataSource datasource;
+//
+//    /**
+//     * Configure the database and users.
+//     */
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication()
+//                .withDefaultSchema()
+//                .dataSource(datasource)
+//                .withUser("test") //Adding a user for testing purposes.
+//                //I need to specify how my password will be encoded. Using the "bcrypt" way, I am encoding "test".
+//                .password("{bcrypt}" + new BCryptPasswordEncoder().encode("test"))
+//                .roles("USER"); //The user's role.
+//    }
 
     /**
      * HTTP configuration so I can access Swagger and H2 Console while all the other endpoints are secured.
