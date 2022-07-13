@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/").permitAll() //NULLIFIES EVERYTHING FOR THE TESTING.
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll();
