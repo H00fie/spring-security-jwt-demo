@@ -1,7 +1,6 @@
 package bm.app.springsecurityjwtdemo.controller;
 
-import bm.app.springsecurityjwtdemo.config.service.HelloService;
-import org.springframework.beans.factory.annotation.Autowired;
+import bm.app.springsecurityjwtdemo.service.HelloService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

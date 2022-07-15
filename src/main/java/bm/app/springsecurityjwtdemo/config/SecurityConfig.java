@@ -1,18 +1,13 @@
 package bm.app.springsecurityjwtdemo.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.sql.DataSource;
-
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfig {
+//    extends
+//} WebSecurityConfigurerAdapter {
+//
 //    private final DataSource datasource;
 //
 //    /**
@@ -35,19 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * to a Web application against which they are currently authenticated.
      * It's being disabled because it's not required if a stateless API uses token-based authentication.
      */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http
-                .authorizeRequests()
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("swagger-resources/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/").permitAll() //NULLIFIES EVERYTHING FOR THE TESTING.
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().permitAll();
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable();
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/swagger-ui.html").permitAll()
+//                .antMatchers("/v2/api-docs").permitAll()
+//                .antMatchers("/webjars/**").permitAll()
+//                .antMatchers("swagger-resources/**").permitAll()
+//                .antMatchers("/h2-console/**").permitAll()
+//                .antMatchers("/").permitAll() //NULLIFIES EVERYTHING FOR THE TESTING.
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().permitAll();
+//    }
 }

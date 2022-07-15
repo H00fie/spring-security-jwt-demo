@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Configuration;
 /**
  * To customize the process of mapping JSONs and objects to JSONs.
  */
-@Configuration
+//@Configuration
 public class Config {
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    /**
-     * For example, I can make my mapper not serialize null fields.
-     */
-    void customizeObjectMapper() {
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
+//    @Autowired
+//    private ObjectMapper objectMapper;
+//
+//    /**
+//     * For example, I can make my mapper not serialize null fields.
+//     */
+//    void customizeObjectMapper() {
+//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//    }
 
 }
