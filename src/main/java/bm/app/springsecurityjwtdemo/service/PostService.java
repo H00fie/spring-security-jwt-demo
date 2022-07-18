@@ -17,4 +17,12 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    /**
+     * .findById() returns an Optional with an object. If there's no object to be returned .orElseThrow()
+     * will throw the NoSuchElementException("No value present") exception.
+     */
+    public Post getSinglePost(long id) {
+        return postRepository.findById(id)
+                .orElseThrow();
+    }
 }
