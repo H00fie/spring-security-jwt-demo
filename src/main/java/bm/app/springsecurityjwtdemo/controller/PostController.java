@@ -30,4 +30,11 @@ public class PostController {
     public List<Post> getPostWithCustomQuery() {
         return postService.getPostsWithCustomQuery();
     }
+
+    @GetMapping("/custom_posts_no_join")
+    public List<Post> getPostWithCustomQueryWithoutJoin() {
+        return postService.getPostsWithCustomQueryWithoutJoin();
+    }
 }
+
+
