@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
 
+    public static final int PAGE_SIZE = 20;
     private final PostRepository postRepository;
 
     /**
@@ -43,5 +44,12 @@ public class PostService {
 
     public List<Post> getPostsWithCustomQueryWithoutJoin() {
         return postRepository.findAllPostsWithoutJoin(PageRequest.of(0, 1));
+    }
+
+    /**
+     * The same method as above, but allowing the user to input the page number as a parameter.
+     */
+    public List<Post> getPostsWithCustomQueryWithoutJoinWithCustomParam(int page) {
+        return postRepository.findAllPostsWithoutJoin(PageRequest.of(page, PAGE_SIZE));
     }
 }

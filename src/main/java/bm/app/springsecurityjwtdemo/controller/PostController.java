@@ -5,10 +5,7 @@ import bm.app.springsecurityjwtdemo.mapper.PostDtoMapper;
 import bm.app.springsecurityjwtdemo.model.Post;
 import bm.app.springsecurityjwtdemo.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,6 +46,17 @@ public class PostController {
     @GetMapping("/custom_posts_no_join_dto")
     public List<PostDto> getPostByDto() {
         return PostDtoMapper.mapToPostDtos(postService.getPostsWithCustomQueryWithoutJoin());
+    }
+
+    /**
+     * A similar method to the above, but allowing the user to specify of which page they want
+     * the records to load.
+     * RequestParam annotation allows to get the parameter from the request.
+     */
+    @GetMapping("/custom_posts_no_join_dto_param")
+    public List<PostDto> getPostByDtoCustomParam(@RequestParam(required = false) int page) {
+        int pageNumber = page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
+        return PostDtoMapper.mapToPostDtos(postService.getPostsWithCustomQueryWithoutJoinWithCustomParam(pageNumber));
     }
 }
 
