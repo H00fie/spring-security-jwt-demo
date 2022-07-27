@@ -6,6 +6,7 @@ import bm.app.springsecurityjwtdemo.repository.CommentRepository;
 import bm.app.springsecurityjwtdemo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,9 +53,19 @@ public class PostService {
 
     /**
      * The same method as above, but allowing the user to input the page number as a parameter.
+     * If I already implemented the pagination, it's easy to add the sorting mechanism - it's
+     * provided by the same mechanism and I can add it as a parameter of the PageRequest's .of()
+     * method.
+     * I can configure the direction of the sorting and specify what fields the sorting should
+     * be carried out by.
+     * I could implement the sorting by hard coding it into the method - to do that, I could
+     * add e.g: "Sort.by(Sort.Order.asc("id"), Sort.Order.desc("created")" which would give me
+     * two directions of how to sort.
+     * The sorting parameter can be provided from the API level instead. The parameter required
+     * for this is "Sort.Direction <param_name>".
      */
-    public List<Post> getPostsWithCustomQueryWithoutJoinWithCustomParam(int page) {
-        return postRepository.findAllPostsWithoutJoin(PageRequest.of(page, PAGE_SIZE));
+    public List<Post> getPostsWithCustomQueryWithoutJoinWithCustomParam(int page, Sort.Direction sort) {
+        return postRepository.findAllPostsWithoutJoin(PageRequest.of(page, PAGE_SIZE, Sort.by(sort, "id")));
     }
 
     /**
@@ -67,9 +78,9 @@ public class PostService {
      * am joining posts with comments myself using two lists I created by having queried
      * Post table once and Comment table once.
      */
-    public List<Post> getPostsWithComments(int page) {
+    public List<Post> getPostsWithComments(int page, Sort.Direction sort) {
         //Getting all posts...
-        List<Post> allPosts = postRepository.findAllPostsWithoutJoin(PageRequest.of(page, PAGE_SIZE));
+        List<Post> allPosts = postRepository.findAllPostsWithoutJoin(PageRequest.of(page, PAGE_SIZE, Sort.by(sort, "id")));
         //Using a stream to get a list of ids of the posts...
         List<Long> ids = allPosts.stream()
                 .map(Post::getId)
