@@ -77,7 +77,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * again applies, but the first query will appear with a limit:
      * "Hibernate: select post0_.id as id1_1_, post0_.content as content2_1_, post0_.created as created3_1_, post0_.title as title4_1_ from post post0_ limit ?"
      * The "limit" is a clause that limits the number of records that is returned by the database so the load
-     * on the database is reduced. There are still additional queries being generated ("N+1") though.
+     * on the database is reduced. There are still additional queries being generated ("N+1") though. These queries (reaching for
+     * the comments for every post) are generated only when the 'comment' field is within my Post entity is read. That is
+     * "lazy loading".
      */
     @Query("select p from Post p")
     List<Post> findAllPostsWithoutJoin(Pageable page);
