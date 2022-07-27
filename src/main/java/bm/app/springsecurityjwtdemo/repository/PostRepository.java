@@ -52,5 +52,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      */
     List<Post> findAllByTitle(String title);
 
+    /**
+     * Untill now I was using a standard .findAll(); method which generates multiple queries - one query for every
+     * record. It's a performance issue and I can work around it.
+     * "Jpa requires me to use "fetch" keyword to get a related entity. If I used an inner join, I would only get
+     * the posts that have comments while the left join ensures that all posts will be loaded even if they are
+     * void of any comments.
+     */
+    @Query("select p from Post p" + " left join fetch p.comment")
+    List<Post> findAllPosts();
 
 }

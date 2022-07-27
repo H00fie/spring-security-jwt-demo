@@ -25,4 +25,9 @@ public class PostController {
     public Post getSinglePost(@PathVariable long id) {
         return postService.getSinglePost(id);
     }
+
+    @GetMapping("/custom_posts")
+    public List<Post> getPostWithCustomQuery() {
+        return postService.getPostsWithCustomQuery();
+    }
 }
