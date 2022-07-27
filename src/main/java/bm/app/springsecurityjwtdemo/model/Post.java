@@ -28,7 +28,6 @@ public class Post {
      * There's "N1 problem" related to that.
      */
     @OneToMany
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     private List<Comment> comment;
-
 }
