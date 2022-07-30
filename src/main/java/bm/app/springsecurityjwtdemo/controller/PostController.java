@@ -53,10 +53,15 @@ public class PostController {
      * A similar method to the above, but allowing the user to specify of which page they want
      * the records to load.
      * RequestParam annotation allows to get the parameter from the request.
+     * The parameter "page" needs to be a reference and not a primitive type because it's supposed to be an optional
+     * parameter and, if left a primitive and without it being provided, I'd get an error saying that a null cannot
+     * be assigned to it.
+     * The parameter is optional and, when not specified, Spring attempts to give it the value of null... so it needs
+     * to be an object type.
      */
     @GetMapping("/custom_posts_no_join_dto_param")
-    public List<PostDto> getPostByDtoCustomParam(@RequestParam(required = false) int page, Sort.Direction sort) {
-        int pageNumber = page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
+    public List<PostDto> getPostByDtoCustomParam(@RequestParam(required = false) Integer page, Sort.Direction sort) {
+        int pageNumber = page != null && page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
         return PostDtoMapper.mapToPostDtos(postService.getPostsWithCustomQueryWithoutJoinWithCustomParam(pageNumber, sort));
     }
 
