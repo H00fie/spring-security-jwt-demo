@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,7 +114,30 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    /**
+     * Initially, the method used a simply Jpa's .save() like the .addPost() above and didn't
+     * do anything else. In such a scenario, if someone tried to edit a post without providing
+     * its is, the application would simply create a new post. It should throw an exception instead.
+     * Without the @Transactional, there are two database transactions within the method. Without the
+     * manual setting of the transactions' management, transactions function in an auto-commit mode
+     * which means every database query is placed in a separate transaction. .findById() is the first
+     * query and thus a transaction and .save() is the second. One method should not have multiple
+     * transactions in order to make sure the updating of the data is cohesive. @Transactional makes
+     * it all a single transaction.
+     * The presence of @Transactional makes the .save() redundant. The annotation makes the method
+     * function as a single transaction, so two queries to the database are not required. Hibernate
+     * has a "dirty checking" mechanism which checks every loaded entity to see if its fields have
+     * changed. If so, Hibernate sees the changes and automatically updates the entity within the
+     * database.
+     */
+    @Transactional
     public Post editPost(Post post) {
-        return postRepository.save(post);
+        //.findById() returns an optional.
+        Post editedPost = postRepository.findById(post.getId()).orElseThrow();
+        //I am changing only the title and the content.
+        editedPost.setTitle(post.getTitle());
+        editedPost.setContent(post.getContent());
+        return editedPost;
+//        return postRepository.save(post);
     }
 }
