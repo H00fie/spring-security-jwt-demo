@@ -3,10 +3,7 @@ package bm.app.springsecurityjwtdemo.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +13,11 @@ import java.util.List;
 public class Post {
 
     @Id
+    /**
+     * @GeneratedValue tells Hibernate to increment the value of id every time a new post is created. The IDENTITY
+     * type makes Hibernate set the entity's id based on the database table's column so my primary key.
+     */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String content;
