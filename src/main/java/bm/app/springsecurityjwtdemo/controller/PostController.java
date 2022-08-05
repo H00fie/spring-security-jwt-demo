@@ -69,8 +69,8 @@ public class PostController {
      * A method for actually loading the posts WITH comments - with pagination and of optimal performance.
      */
     @GetMapping("/posts/comments")
-    public List<Post> getPostsWithComments(@RequestParam(required = false) int page, Sort.Direction sort) {
-        int pageNumber = page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
+    public List<Post> getPostsWithComments(@RequestParam(required = false) Integer page, Sort.Direction sort) {
+        int pageNumber = page != null && page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
         return postService.getPostsWithComments(pageNumber, sort);
     }
 
