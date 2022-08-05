@@ -140,4 +140,13 @@ public class PostService {
         return editedPost;
 //        return postRepository.save(post);
     }
+
+    /**
+     * Deleting is just like that would not work, because I cannot delete a post that has a foreign
+     * key to another entity (comments). In order to have all comments be deleted alongside their post,
+     * I need to set the cascade argument in the relation between the two entities in Post.
+     */
+    public void deletePost(long id) {
+        postRepository.deleteById(id);
+    }
 }

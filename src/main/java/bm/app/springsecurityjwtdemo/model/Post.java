@@ -38,8 +38,10 @@ public class Post {
      * to not change the comments upon adding new ones. These attributes mean that the update of the comments or
      * the insertion of new ones is not possible to be executed from the level of the current entity here, which
      * is Post.
+     * "cascade = CascadeType.REMOVE" means that comments for any particular post should be deleted alongside that
+     * post.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "postId", updatable = false, insertable = false)
     private List<Comment> comment;
 }
