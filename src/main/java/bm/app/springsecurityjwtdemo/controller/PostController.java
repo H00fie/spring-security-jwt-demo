@@ -82,4 +82,9 @@ public class PostController {
         return postService.addPost(post);
     }
 
+    @PutMapping("/posts")
+    public Post editPost(@RequestBody Post post) {
+        return postService.editPost(post);
+    }
+
 }
