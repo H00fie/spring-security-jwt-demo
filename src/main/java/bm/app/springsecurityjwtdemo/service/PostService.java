@@ -97,10 +97,19 @@ public class PostService {
         return allPosts;
     }
 
-    //A method for extracting all comments for a post whose id is provided as a parameter.
+    /**
+     * A method for extracting all comments for a post whose id is provided as a parameter.
+     */
     private List<Comment> extractComments(List<Comment> comments, long id) {
         return comments.stream()
                 .filter(comment -> comment.getPostId() == id)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Utilizing a standard saving method of Spring Data Jpa.
+     */
+    public Post addPost(Post post) {
+        return postRepository.save(post);
     }
 }

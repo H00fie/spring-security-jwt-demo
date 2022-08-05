@@ -74,4 +74,12 @@ public class PostController {
         return postService.getPostsWithComments(pageNumber, sort);
     }
 
+    /**
+     * It is a custom that a posting method returns the same resource it's creating.
+     */
+    @PostMapping("/posts")
+    public Post addPost(@RequestBody Post post) {
+        return postService.addPost(post);
+    }
+
 }
