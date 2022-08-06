@@ -1,17 +1,10 @@
 package bm.app.springsecurityjwtdemo.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springdoc.core.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class Config {
-
-    @Autowired
-    private ObjectMapper objectMapper;
+//@Configuration
+//public class Config {
+//
+//    @Autowired
+//    private ObjectMapper objectMapper;
 
     /**
      * I could customize the process of mapping JSONs and objects to JSONs.
@@ -32,4 +25,4 @@ public class Config {
 //                .
 //    }
 
-}
+//}
