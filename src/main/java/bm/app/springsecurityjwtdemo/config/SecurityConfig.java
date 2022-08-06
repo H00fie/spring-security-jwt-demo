@@ -1,5 +1,6 @@
 package bm.app.springsecurityjwtdemo.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Required for the first .configure()
      */
     private final DataSource datasource;
+
+    private final ObjectMapper objectMapper;
 
     /**
      * To configure the database and users. The below method is sufficient to have the first user
@@ -63,5 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+    }
+
+    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+        JsonObjectAuthenticationFilter authenticationFilter = new JsonObjectAuthenticationFilter(objectMapper);
+        
+        return authenticationFilter;
     }
 }
