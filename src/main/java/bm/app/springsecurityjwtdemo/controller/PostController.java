@@ -62,7 +62,8 @@ public class PostController {
     @GetMapping("/custom_posts_no_join_dto_param")
     public List<PostDto> getPostByDtoCustomParam(@RequestParam(required = false) Integer page, Sort.Direction sort) {
         int pageNumber = page != null && page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
-        return PostDtoMapper.mapToPostDtos(postService.getPostsWithCustomQueryWithoutJoinWithCustomParam(pageNumber, sort));
+        Sort.Direction sortDirection = sort != null ? sort : Sort.Direction.ASC;
+        return PostDtoMapper.mapToPostDtos(postService.getPostsWithCustomQueryWithoutJoinWithCustomParam(pageNumber, sortDirection));
     }
 
     /**
@@ -71,7 +72,8 @@ public class PostController {
     @GetMapping("/posts/comments")
     public List<Post> getPostsWithComments(@RequestParam(required = false) Integer page, Sort.Direction sort) {
         int pageNumber = page != null && page >= 0 ? page : 0; //Negative input will just trigger the first page to load.
-        return postService.getPostsWithComments(pageNumber, sort);
+        Sort.Direction sortDirection = sort != null ? sort : Sort.Direction.ASC;
+        return postService.getPostsWithComments(pageNumber, sortDirection);
     }
 
     /**
